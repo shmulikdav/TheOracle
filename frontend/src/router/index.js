@@ -5,12 +5,25 @@ import SimulationView from '../views/SimulationView.vue'
 import SimulationRunView from '../views/SimulationRunView.vue'
 import ReportView from '../views/ReportView.vue'
 import InteractionView from '../views/InteractionView.vue'
+import WorldsView from '../views/WorldsView.vue'
+import WorldDetailView from '../views/WorldDetailView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/worlds',
+    name: 'Worlds',
+    component: WorldsView
+  },
+  {
+    path: '/worlds/:worldId',
+    name: 'WorldDetail',
+    component: WorldDetailView,
+    props: true
   },
   {
     path: '/process/:projectId',
