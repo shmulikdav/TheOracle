@@ -1,0 +1,183 @@
+/* ============================================
+   The Oracle — global theme tokens & base styles
+   Mystical palette: deep indigo nights, gold laurel,
+   teal eye, lilac glow, cream text.
+   ============================================ */
+
+:root {
+  /* Backgrounds */
+  --oracle-bg: #0B0820;
+  --oracle-bg-deep: #06041A;
+  --oracle-bg-elevated: #150E36;
+  --oracle-bg-card: rgba(155, 123, 216, 0.06);
+  --oracle-bg-card-hover: rgba(155, 123, 216, 0.10);
+  --oracle-bg-input: rgba(11, 8, 32, 0.6);
+
+  /* Borders */
+  --oracle-border: rgba(212, 168, 87, 0.18);
+  --oracle-border-strong: rgba(212, 168, 87, 0.45);
+  --oracle-border-mystic: rgba(155, 123, 216, 0.25);
+
+  /* Text */
+  --oracle-text: #F0E6D2;
+  --oracle-text-dim: #C4B5D8;
+  --oracle-text-muted: rgba(196, 181, 216, 0.55);
+
+  /* Accents */
+  --oracle-gold: #D4A857;
+  --oracle-gold-bright: #F5D57A;
+  --oracle-teal: #5CD0D8;
+  --oracle-mystic: #9B7BD8;
+  --oracle-rose: #E07A8C;
+  --oracle-mint: #7DD8A6;
+
+  /* Fonts */
+  --oracle-font-sans: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
+  --oracle-font-mono: 'JetBrains Mono', monospace;
+  --oracle-font-serif: 'Cormorant Garamond', 'Cinzel', 'Noto Serif SC', serif;
+}
+
+html, body {
+  background-color: var(--oracle-bg);
+  color: var(--oracle-text);
+  font-family: var(--oracle-font-sans);
+  min-height: 100vh;
+}
+
+#app {
+  background-color: var(--oracle-bg) !important;
+  color: var(--oracle-text) !important;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Subtle starfield — placed on the deepest layer */
+#app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(245, 213, 122, 0.45) 0, transparent 1.5px),
+    radial-gradient(circle at 78% 22%, rgba(92, 208, 216, 0.35) 0, transparent 1.5px),
+    radial-gradient(circle at 42% 64%, rgba(155, 123, 216, 0.40) 0, transparent 1.5px),
+    radial-gradient(circle at 88% 80%, rgba(245, 213, 122, 0.30) 0, transparent 1.5px),
+    radial-gradient(circle at 18% 88%, rgba(92, 208, 216, 0.30) 0, transparent 1.5px),
+    radial-gradient(ellipse at top, rgba(155, 123, 216, 0.12), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(92, 208, 216, 0.06), transparent 55%);
+  background-size: 220px 220px, 220px 220px, 220px 220px, 220px 220px, 220px 220px, auto, auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--oracle-bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--oracle-border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--oracle-gold); }
+
+/* Reusable brand mark (sparkle + wordmark) */
+.oracle-brand {
+  font-family: var(--oracle-font-mono);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 1.05rem;
+  color: var(--oracle-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.oracle-brand::before {
+  content: '✦';
+  color: var(--oracle-gold);
+  font-size: 1rem;
+}
+
+.oracle-brand:hover { color: var(--oracle-gold-bright); }
+
+/* Tiny tag — replaces the old orange-tag */
+.oracle-tag {
+  display: inline-block;
+  font-family: var(--oracle-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--oracle-gold);
+  padding: 4px 10px;
+  border: 1px solid var(--oracle-border-strong);
+  background: rgba(212, 168, 87, 0.06);
+  text-transform: uppercase;
+}
+
+/* Reusable form elements (dark-on-mystic) */
+.oracle-input,
+.oracle-textarea {
+  background: var(--oracle-bg-input);
+  border: 1px solid var(--oracle-border);
+  color: var(--oracle-text);
+  font-family: var(--oracle-font-mono);
+  font-size: 0.9rem;
+  padding: 12px 14px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.oracle-input::placeholder,
+.oracle-textarea::placeholder {
+  color: var(--oracle-text-muted);
+}
+
+.oracle-input:focus,
+.oracle-textarea:focus {
+  outline: none;
+  border-color: var(--oracle-gold);
+  box-shadow: 0 0 0 2px rgba(212, 168, 87, 0.15);
+}
+
+/* Reusable buttons */
+.oracle-btn {
+  background: linear-gradient(135deg, var(--oracle-gold) 0%, #b8924d 100%);
+  color: var(--oracle-bg-deep);
+  border: none;
+  padding: 13px 26px;
+  font-family: var(--oracle-font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+}
+
+.oracle-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(212, 168, 87, 0.35);
+  filter: brightness(1.08);
+}
+
+.oracle-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.oracle-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--oracle-border);
+  color: var(--oracle-text-dim);
+  padding: 12px 24px;
+  font-family: var(--oracle-font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.oracle-btn-ghost:hover:not(:disabled) {
+  border-color: var(--oracle-gold);
+  color: var(--oracle-gold);
+}

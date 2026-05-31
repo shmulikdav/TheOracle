@@ -26,22 +26,22 @@
     "files": "files"
   },
   "meta": {
-    "title": "MiroFish - Predict Everything",
-    "description": "MiroFish - Social Media Opinion Simulation System"
+    "title": "The Oracle - Predict Everything",
+    "description": "The Oracle - Social Media Opinion Simulation System"
   },
   "nav": {
     "visitGithub": "Visit our Github page"
   },
   "home": {
-    "tagline": "Concise & Universal Swarm Intelligence Engine",
+    "tagline": "Oracular Insight · Swarm Intelligence Engine",
     "version": "/ v0.1-Preview",
-    "heroTitle1": "Upload Reports,",
-    "heroTitle2": "Predict the Future",
-    "heroDesc": "From a single document, {brand} extracts reality seeds to auto-generate a parallel world with up to {agentScale}. Inject variables from a god's-eye view to find the {optimalSolution} in complex group dynamics.",
-    "heroDescBrand": "MiroFish",
-    "heroDescAgentScale": "million-scale Agents",
+    "heroTitle1": "Consult the swarm.",
+    "heroTitle2": "Rehearse the future.",
+    "heroDesc": "From a single document, {brand} extracts reality seeds to summon a parallel world of up to {agentScale}. Inject variables from a seer's eye to find the {optimalSolution} hidden in complex group dynamics.",
+    "heroDescBrand": "The Oracle",
+    "heroDescAgentScale": "million-scale agents",
     "heroDescOptimalSolution": "\"local optimum\"",
-    "slogan": "Let Agents rehearse the future, let decisions prevail",
+    "slogan": "Let the swarm rehearse what's next, then decide with eyes open",
     "systemStatus": "System Status",
     "systemReady": "Ready",
     "systemReadyDesc": "Prediction engine on standby. Upload unstructured data to initialize a simulation sequence.",
@@ -67,7 +67,7 @@
     "inputParams": "Input Parameters",
     "simulationPrompt": ">_ 02 / Simulation Prompt",
     "promptPlaceholder": "// Describe your simulation or prediction requirement in natural language",
-    "engineBadge": "Engine: MiroFish-V1.0",
+    "engineBadge": "Engine: The Oracle-V1.0",
     "startEngine": "Start Engine",
     "initializing": "Initializing..."
   },
@@ -145,7 +145,7 @@
     "setupComplete": "Setup Complete",
     "setupCompleteDesc": "Simulation environment is ready. You can now start the simulation.",
     "roundsConfig": "Simulation Rounds Configuration",
-    "roundsConfigDesc": "MiroFish auto-plans to simulate {hours} real-world hours, each round representing {minutesPerRound} minutes of elapsed time",
+    "roundsConfigDesc": "The Oracle auto-plans to simulate {hours} real-world hours, each round representing {minutesPerRound} minutes of elapsed time",
     "customToggle": "Custom",
     "roundsUnit": "rounds",
     "estimatedDuration": "For 100 Agents: est. ~{minutes} minutes",
@@ -257,7 +257,7 @@
     "selectChatTarget": "Select chat target",
     "sendSurvey": "Send survey to the world",
     "reportAgentChat": "Report Agent - Chat",
-    "reportAgentDesc": "A conversational version of the report generation agent with access to 4 professional tools and MiroFish's complete memory",
+    "reportAgentDesc": "A conversational version of the report generation agent with access to 4 professional tools and The Oracle's complete memory",
     "toolInsightForge": "InsightForge Deep Attribution",
     "toolInsightForgeDesc": "Aligns real-world seed data with simulation state, combining Global/Local Memory for cross-temporal deep attribution analysis",
     "toolPanoramaSearch": "PanoramaSearch Full Tracking",

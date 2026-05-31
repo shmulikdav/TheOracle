@@ -1436,55 +1436,58 @@ onUnmounted(() => {
   line-height: 1.5;
 }
 
-/* Save-as-World composer */
+/* Save-as-World composer (Oracle theme) */
 .save-world-section {
   padding: 0 32px 24px;
-  background: #FFFFFF;
-  border-top: 1px solid #F0F0F0;
+  background: transparent;
+  border-top: 1px solid var(--oracle-border, rgba(212, 168, 87, 0.18));
 }
 
 .save-world-btn {
   margin-top: 16px;
   background: transparent;
-  border: 1px solid #000;
-  color: #000;
-  padding: 10px 16px;
+  border: 1px solid var(--oracle-gold, #D4A857);
+  color: var(--oracle-gold, #D4A857);
+  padding: 10px 18px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 .save-world-btn:not(:disabled):hover {
-  background: #000;
-  color: #fff;
+  background: var(--oracle-gold, #D4A857);
+  color: var(--oracle-bg-deep, #06041A);
+  box-shadow: 0 0 24px rgba(212, 168, 87, 0.35);
 }
 
 .save-world-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .save-world-btn.primary {
-  background: #000;
-  color: #fff;
+  background: linear-gradient(135deg, var(--oracle-gold, #D4A857) 0%, #b8924d 100%);
+  color: var(--oracle-bg-deep, #06041A);
+  border-color: var(--oracle-gold, #D4A857);
 }
 
 .save-world-btn.primary:hover:not(:disabled) {
-  background: #FF4500;
-  border-color: #FF4500;
+  filter: brightness(1.1);
+  border-color: var(--oracle-gold-bright, #F5D57A);
 }
 
 .world-composer {
   margin-top: 16px;
   padding: 18px;
-  background: #FAFAFA;
-  border: 1px solid #E5E5E5;
+  background: var(--oracle-bg-card, rgba(155, 123, 216, 0.06));
+  border: 1px solid var(--oracle-border-strong, rgba(212, 168, 87, 0.45));
 }
 
 .composer-row {
@@ -1497,13 +1500,15 @@ onUnmounted(() => {
 .composer-row label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: #666;
-  letter-spacing: 0.5px;
+  color: var(--oracle-text-muted, rgba(196, 181, 216, 0.6));
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .composer-row .composer-input {
-  border: 1px solid #E5E5E5;
-  background: #fff;
+  border: 1px solid var(--oracle-border, rgba(212, 168, 87, 0.2));
+  background: var(--oracle-bg-input, rgba(11, 8, 32, 0.6));
+  color: var(--oracle-text, #F0E6D2);
   padding: 10px 12px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
@@ -1512,9 +1517,14 @@ onUnmounted(() => {
   resize: vertical;
 }
 
+.composer-row .composer-input::placeholder {
+  color: var(--oracle-text-muted, rgba(196, 181, 216, 0.55));
+}
+
 .composer-row .composer-input:focus {
   outline: none;
-  border-color: #000;
+  border-color: var(--oracle-gold, #D4A857);
+  box-shadow: 0 0 0 2px rgba(212, 168, 87, 0.15);
 }
 
 .composer-actions {
@@ -1526,22 +1536,23 @@ onUnmounted(() => {
 
 .ghost-btn {
   background: transparent;
-  border: 1px solid #E5E5E5;
+  border: 1px solid var(--oracle-border, rgba(212, 168, 87, 0.18));
   padding: 10px 16px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.78rem;
+  color: var(--oracle-text-dim, #C4B5D8);
   cursor: pointer;
+  letter-spacing: 0.5px;
 }
 
 .ghost-btn:hover:not(:disabled) {
-  border-color: #000;
-  color: #000;
+  border-color: var(--oracle-gold, #D4A857);
+  color: var(--oracle-gold, #D4A857);
 }
 
 .composer-error {
   margin-top: 8px;
-  color: #FF4500;
+  color: var(--oracle-rose, #E07A8C);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
 }
