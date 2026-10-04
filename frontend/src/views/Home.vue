@@ -2,10 +2,13 @@
   <div class="home-container">
     <!-- 顶部导航栏 -->
     <nav class="navbar">
-      <div class="nav-brand">MIROFISH</div>
+      <div class="nav-brand">THE ORACLE</div>
       <div class="nav-links">
+        <router-link to="/worlds" class="github-link">
+          {{ $t('worlds.navFocusGroups') }} <span class="arrow">→</span>
+        </router-link>
         <LanguageSwitcher />
-        <a href="https://github.com/666ghj/MiroFish" target="_blank" class="github-link">
+        <a href="https://github.com/shmulikdav/TheOracle" target="_blank" class="github-link">
           {{ $t('nav.visitGithub') }} <span class="arrow">↗</span>
         </a>
       </div>
@@ -42,9 +45,86 @@
         </div>
         
         <div class="hero-right">
-          <!-- Logo 区域 -->
+          <!-- Oracle eye -->
           <div class="logo-container">
-            <img src="../assets/logo/MiroFish_logo_left.jpeg" alt="MiroFish Logo" class="hero-logo" />
+            <svg class="oracle-eye" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <radialGradient id="iris-grad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#F5D57A" />
+                  <stop offset="40%" stop-color="#5CD0D8" />
+                  <stop offset="100%" stop-color="#150E36" />
+                </radialGradient>
+                <radialGradient id="halo-grad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(212,168,87,0.3)" />
+                  <stop offset="100%" stop-color="rgba(212,168,87,0)" />
+                </radialGradient>
+                <linearGradient id="eye-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#D4A857" />
+                  <stop offset="100%" stop-color="#9B7BD8" />
+                </linearGradient>
+              </defs>
+
+              <!-- outer halo -->
+              <circle cx="200" cy="200" r="180" fill="url(#halo-grad)" />
+
+              <!-- Greek-key border ring -->
+              <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(155,123,216,0.18)" stroke-width="1" stroke-dasharray="2 8"/>
+              <circle cx="200" cy="200" r="156" fill="none" stroke="rgba(212,168,87,0.25)" stroke-width="1"/>
+
+              <!-- Eye almond -->
+              <path d="M60 200 Q 200 80 340 200 Q 200 320 60 200 Z"
+                    fill="none" stroke="url(#eye-stroke)" stroke-width="2.5"/>
+
+              <!-- Iris -->
+              <circle cx="200" cy="200" r="62" fill="url(#iris-grad)" />
+              <!-- Pupil -->
+              <circle cx="200" cy="200" r="22" fill="#06041A"/>
+              <!-- Highlight -->
+              <circle cx="186" cy="186" r="6" fill="#F0E6D2" opacity="0.85"/>
+
+              <!-- Constellation inside iris (Orion-ish line) -->
+              <g stroke="#F5D57A" stroke-width="0.8" fill="#F5D57A" opacity="0.9">
+                <line x1="172" y1="190" x2="190" y2="200" />
+                <line x1="190" y1="200" x2="210" y2="195" />
+                <line x1="210" y1="195" x2="226" y2="210" />
+                <circle cx="172" cy="190" r="1.5"/>
+                <circle cx="190" cy="200" r="1.8"/>
+                <circle cx="210" cy="195" r="1.5"/>
+                <circle cx="226" cy="210" r="1.5"/>
+              </g>
+
+              <!-- Laurel left -->
+              <g stroke="#D4A857" stroke-width="1.2" fill="none" opacity="0.85">
+                <path d="M88 220 Q 110 270 150 300" />
+                <path d="M100 235 q -10 5 -12 14" />
+                <path d="M114 252 q -10 5 -12 14" />
+                <path d="M128 268 q -10 5 -12 14" />
+                <path d="M142 282 q -10 5 -12 14" />
+              </g>
+              <!-- Laurel right (mirror) -->
+              <g stroke="#D4A857" stroke-width="1.2" fill="none" opacity="0.85">
+                <path d="M312 220 Q 290 270 250 300" />
+                <path d="M300 235 q 10 5 12 14" />
+                <path d="M286 252 q 10 5 12 14" />
+                <path d="M272 268 q 10 5 12 14" />
+                <path d="M258 282 q 10 5 12 14" />
+              </g>
+
+              <!-- Sparkles -->
+              <g fill="#F5D57A">
+                <path d="M60 90 l 3 -10 l 3 10 l 10 3 l -10 3 l -3 10 l -3 -10 l -10 -3 z" opacity="0.9"/>
+                <path d="M340 110 l 2 -7 l 2 7 l 7 2 l -7 2 l -2 7 l -2 -7 l -7 -2 z" opacity="0.85"/>
+                <path d="M70 330 l 2 -6 l 2 6 l 6 2 l -6 2 l -2 6 l -2 -6 l -6 -2 z" opacity="0.8"/>
+                <path d="M330 340 l 2 -7 l 2 7 l 7 2 l -7 2 l -2 7 l -2 -7 l -7 -2 z" opacity="0.85"/>
+              </g>
+
+              <!-- Smoke wisps below -->
+              <g stroke="#9B7BD8" stroke-width="1" fill="none" opacity="0.4">
+                <path d="M170 340 q 10 10 0 20 q -10 10 0 20" />
+                <path d="M200 340 q -10 12 0 22 q 10 10 0 20" />
+                <path d="M230 340 q 10 10 0 20 q -10 10 0 20" />
+              </g>
+            </svg>
           </div>
           
           <button class="scroll-down-btn" @click="scrollToBottom">
@@ -879,20 +959,292 @@ const startSimulation = () => {
   .dashboard-section {
     flex-direction: column;
   }
-  
+
   .hero-section {
     flex-direction: column;
   }
-  
+
   .hero-left {
     padding-right: 0;
     margin-bottom: 40px;
   }
-  
+
   .hero-logo {
     max-width: 200px;
     margin-bottom: 20px;
   }
+}
+
+/* ============================================
+   ORACLE THEME OVERRIDES
+   ============================================ */
+
+.home-container {
+  background: transparent !important;
+  color: var(--oracle-text);
+  position: relative;
+  z-index: 1;
+}
+
+.navbar {
+  background: rgba(11, 8, 32, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--oracle-border);
+  color: var(--oracle-text);
+}
+
+.nav-brand {
+  color: var(--oracle-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.nav-brand::before {
+  content: '✦';
+  color: var(--oracle-gold);
+  font-size: 1.1rem;
+  text-shadow: 0 0 12px var(--oracle-gold);
+}
+
+.nav-brand:hover {
+  color: var(--oracle-gold-bright);
+}
+
+.github-link {
+  color: var(--oracle-text-dim);
+  transition: color 0.2s;
+}
+
+.github-link:hover {
+  color: var(--oracle-gold);
+  opacity: 1;
+}
+
+.orange-tag {
+  background: transparent;
+  color: var(--oracle-gold);
+  border: 1px solid var(--oracle-border-strong);
+  letter-spacing: 2px;
+}
+
+.version-text {
+  color: var(--oracle-text-muted);
+}
+
+.main-title {
+  color: var(--oracle-text);
+  font-family: var(--oracle-font-serif), 'Space Grotesk', sans-serif;
+  font-weight: 400;
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, var(--oracle-gold) 0%, var(--oracle-mystic) 50%, var(--oracle-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc { color: var(--oracle-text-dim); }
+.hero-desc p { color: var(--oracle-text-dim); }
+
+.highlight-bold { color: var(--oracle-text); font-weight: 700; }
+.highlight-orange { color: var(--oracle-gold); }
+.highlight-code {
+  background: rgba(212, 168, 87, 0.12);
+  color: var(--oracle-gold);
+  border: 1px solid var(--oracle-border);
+}
+
+.slogan-text {
+  color: var(--oracle-text);
+  border-left-color: var(--oracle-gold);
+}
+
+.blinking-cursor { color: var(--oracle-gold); }
+
+.decoration-square {
+  background: var(--oracle-gold);
+  box-shadow: 0 0 24px rgba(212, 168, 87, 0.55);
+}
+
+.scroll-down-btn {
+  background: transparent;
+  color: var(--oracle-gold);
+  border: 1px solid var(--oracle-border-strong);
+}
+
+.scroll-down-btn:hover {
+  background: rgba(212, 168, 87, 0.1);
+  color: var(--oracle-gold-bright);
+}
+
+/* Dashboard area */
+.left-panel, .right-panel {
+  color: var(--oracle-text);
+}
+
+.panel-header,
+.console-header {
+  color: var(--oracle-gold);
+}
+
+.status-dot { color: var(--oracle-gold); }
+
+.section-title { color: var(--oracle-text); }
+.section-desc { color: var(--oracle-text-dim); }
+
+.metric-card {
+  background: var(--oracle-bg-card);
+  border: 1px solid var(--oracle-border);
+  padding: 16px;
+}
+
+.metric-value { color: var(--oracle-gold); }
+.metric-label { color: var(--oracle-text-muted); }
+
+.steps-container { color: var(--oracle-text); }
+.steps-header { color: var(--oracle-gold); }
+.diamond-icon { color: var(--oracle-gold); }
+
+.workflow-item {
+  border-bottom: 1px solid var(--oracle-border);
+}
+
+.step-num {
+  color: var(--oracle-gold-bright);
+  opacity: 0.6;
+}
+
+.step-title { color: var(--oracle-text); }
+.step-desc { color: var(--oracle-text-dim); }
+
+/* Right console */
+.console-box {
+  border: 1px solid var(--oracle-border-strong);
+  background: var(--oracle-bg-card);
+  padding: 10px;
+  box-shadow: 0 8px 40px rgba(11, 8, 32, 0.6);
+}
+
+.console-section { color: var(--oracle-text); }
+
+.upload-zone {
+  background: var(--oracle-bg-input);
+  border: 1px dashed var(--oracle-border-strong);
+  color: var(--oracle-text-dim);
+}
+
+.upload-zone:hover {
+  background: rgba(212, 168, 87, 0.06);
+  border-color: var(--oracle-gold);
+}
+
+.upload-icon {
+  border-color: var(--oracle-border-strong);
+  color: var(--oracle-gold);
+}
+
+.upload-title { color: var(--oracle-text); }
+.upload-hint { color: var(--oracle-text-muted); }
+
+.file-item {
+  background: var(--oracle-bg-deep);
+  border: 1px solid var(--oracle-border);
+  color: var(--oracle-text);
+}
+
+.remove-btn { color: var(--oracle-text-muted); }
+.remove-btn:hover { color: var(--oracle-rose); }
+
+.console-divider span { color: var(--oracle-text-muted); }
+.console-divider::before, .console-divider::after { background: var(--oracle-border); }
+
+.input-wrapper {
+  background: var(--oracle-bg-input);
+  border: 1px solid var(--oracle-border);
+}
+
+.code-input {
+  color: var(--oracle-text);
+  background: transparent;
+}
+
+.code-input::placeholder { color: var(--oracle-text-muted); }
+
+.model-badge { color: var(--oracle-text-muted); }
+
+.start-engine-btn {
+  background: linear-gradient(135deg, var(--oracle-gold) 0%, #b8924d 100%);
+  color: var(--oracle-bg-deep);
+  border: 1px solid var(--oracle-gold);
+}
+
+.start-engine-btn:not(:disabled) {
+  background: linear-gradient(135deg, var(--oracle-gold) 0%, #b8924d 100%);
+  border: 1px solid var(--oracle-gold);
+  animation: oracle-pulse 2.4s infinite;
+}
+
+.start-engine-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--oracle-gold-bright) 0%, var(--oracle-gold) 100%);
+  border-color: var(--oracle-gold-bright);
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.start-engine-btn:disabled {
+  background: var(--oracle-bg-card);
+  color: var(--oracle-text-muted);
+  border: 1px solid var(--oracle-border);
+}
+
+@keyframes oracle-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(212, 168, 87, 0.5); }
+  70%  { box-shadow: 0 0 0 12px rgba(212, 168, 87, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 168, 87, 0); }
+}
+
+/* Replace bitmap logo with mystical eye SVG slot */
+.hero-logo {
+  display: none;
+}
+
+.logo-container {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, rgba(212, 168, 87, 0.18), transparent 55%),
+    radial-gradient(circle at center, rgba(92, 208, 216, 0.12), transparent 70%);
+  filter: blur(10px);
+}
+
+.oracle-eye {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  filter: drop-shadow(0 0 36px rgba(212, 168, 87, 0.35));
+  animation: oracle-breathe 6s ease-in-out infinite;
+}
+
+@keyframes oracle-breathe {
+  0%, 100% { transform: scale(1);    opacity: 0.95; }
+  50%      { transform: scale(1.02); opacity: 1; }
 }
 </style>
 

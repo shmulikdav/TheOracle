@@ -152,8 +152,8 @@
 
             <!-- 导航按钮 -->
             <div class="modal-actions">
-              <button 
-                class="modal-btn btn-project" 
+              <button
+                class="modal-btn btn-project"
                 @click="goToProject"
                 :disabled="!selectedProject.project_id"
               >
@@ -161,16 +161,16 @@
                 <span class="btn-icon">◇</span>
                 <span class="btn-text">{{ $t('history.step1Button') }}</span>
               </button>
-              <button 
-                class="modal-btn btn-simulation" 
+              <button
+                class="modal-btn btn-simulation"
                 @click="goToSimulation"
               >
                 <span class="btn-step">Step2</span>
                 <span class="btn-icon">◈</span>
                 <span class="btn-text">{{ $t('history.step2Button') }}</span>
               </button>
-              <button 
-                class="modal-btn btn-report" 
+              <button
+                class="modal-btn btn-report"
                 @click="goToReport"
                 :disabled="!selectedProject.report_id"
               >
@@ -182,6 +182,42 @@
             <!-- 不可回放提示 -->
             <div class="modal-playback-hint">
               <span class="hint-text">{{ $t('history.replayHint') }}</span>
+            </div>
+
+            <!-- Save as World -->
+            <div class="save-world-section">
+              <button
+                v-if="!worldComposerOpen"
+                class="save-world-btn"
+                @click="openWorldComposer"
+                :disabled="!canSaveWorld"
+                :title="!canSaveWorld ? $t('history.saveWorldDisabledHint') : ''"
+              >
+                <span class="btn-icon">◇</span>
+                <span>{{ $t('history.saveWorldBtn') }}</span>
+              </button>
+              <div v-else class="world-composer">
+                <div class="composer-row">
+                  <label>{{ $t('history.worldNameLabel') }}</label>
+                  <input v-model="worldName" type="text" class="composer-input" :placeholder="$t('history.worldNamePlaceholder')" />
+                </div>
+                <div class="composer-row">
+                  <label>{{ $t('history.worldSummaryLabel') }}</label>
+                  <textarea v-model="worldSummary" rows="3" class="composer-input" :placeholder="$t('history.worldSummaryPlaceholder')"></textarea>
+                </div>
+                <div class="composer-row">
+                  <label>{{ $t('history.worldTagsLabel') }}</label>
+                  <input v-model="worldTagsInput" type="text" class="composer-input" :placeholder="$t('history.worldTagsPlaceholder')" />
+                </div>
+                <div class="composer-actions">
+                  <button class="ghost-btn" @click="cancelWorldComposer" :disabled="savingWorld">{{ $t('common.cancel') }}</button>
+                  <button class="save-world-btn primary" @click="saveAsWorld" :disabled="!worldName.trim() || savingWorld">
+                    <span v-if="!savingWorld">{{ $t('history.saveWorldConfirm') }}</span>
+                    <span v-else>{{ $t('history.savingWorld') }}</span>
+                  </button>
+                </div>
+                <div v-if="worldError" class="composer-error">{{ worldError }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -195,6 +231,7 @@ import { ref, computed, onMounted, onUnmounted, onActivated, watch, nextTick } f
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { getSimulationHistory } from '../api/simulation'
+import { createWorld } from '../api/worlds'
 
 const router = useRouter()
 const route = useRoute()
@@ -433,6 +470,65 @@ const goToReport = () => {
       params: { reportId: selectedProject.value.report_id }
     })
     closeModal()
+  }
+}
+
+// ===== Save-as-World composer =====
+const worldComposerOpen = ref(false)
+const worldName = ref('')
+const worldSummary = ref('')
+const worldTagsInput = ref('')
+const savingWorld = ref(false)
+const worldError = ref('')
+
+const canSaveWorld = computed(() => {
+  const sp = selectedProject.value
+  return !!(sp && sp.project_id && sp.simulation_id)
+})
+
+const openWorldComposer = () => {
+  if (!canSaveWorld.value) return
+  const sp = selectedProject.value
+  worldName.value = sp.project_name || sp.simulation_requirement?.slice(0, 40) || 'Untitled audience'
+  worldSummary.value = sp.simulation_requirement || ''
+  worldTagsInput.value = ''
+  worldError.value = ''
+  worldComposerOpen.value = true
+}
+
+const cancelWorldComposer = () => {
+  worldComposerOpen.value = false
+  worldError.value = ''
+}
+
+const saveAsWorld = async () => {
+  const sp = selectedProject.value
+  if (!sp || !worldName.value.trim()) return
+  savingWorld.value = true
+  worldError.value = ''
+  try {
+    const tags = worldTagsInput.value
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean)
+    const res = await createWorld({
+      name: worldName.value.trim(),
+      description: '',
+      audience_summary: worldSummary.value.trim(),
+      project_id: sp.project_id,
+      simulation_id: sp.simulation_id,
+      tags
+    })
+    const worldId = res.data?.world_id
+    closeModal()
+    worldComposerOpen.value = false
+    if (worldId) {
+      router.push(`/worlds/${worldId}`)
+    }
+  } catch (e) {
+    worldError.value = e.message || String(e)
+  } finally {
+    savingWorld.value = false
   }
 }
 
@@ -1338,5 +1434,126 @@ onUnmounted(() => {
   letter-spacing: 0.3px;
   text-align: center;
   line-height: 1.5;
+}
+
+/* Save-as-World composer (Oracle theme) */
+.save-world-section {
+  padding: 0 32px 24px;
+  background: transparent;
+  border-top: 1px solid var(--oracle-border, rgba(212, 168, 87, 0.18));
+}
+
+.save-world-btn {
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid var(--oracle-gold, #D4A857);
+  color: var(--oracle-gold, #D4A857);
+  padding: 10px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.save-world-btn:not(:disabled):hover {
+  background: var(--oracle-gold, #D4A857);
+  color: var(--oracle-bg-deep, #06041A);
+  box-shadow: 0 0 24px rgba(212, 168, 87, 0.35);
+}
+
+.save-world-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.save-world-btn.primary {
+  background: linear-gradient(135deg, var(--oracle-gold, #D4A857) 0%, #b8924d 100%);
+  color: var(--oracle-bg-deep, #06041A);
+  border-color: var(--oracle-gold, #D4A857);
+}
+
+.save-world-btn.primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  border-color: var(--oracle-gold-bright, #F5D57A);
+}
+
+.world-composer {
+  margin-top: 16px;
+  padding: 18px;
+  background: var(--oracle-bg-card, rgba(155, 123, 216, 0.06));
+  border: 1px solid var(--oracle-border-strong, rgba(212, 168, 87, 0.45));
+}
+
+.composer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.composer-row label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--oracle-text-muted, rgba(196, 181, 216, 0.6));
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.composer-row .composer-input {
+  border: 1px solid var(--oracle-border, rgba(212, 168, 87, 0.2));
+  background: var(--oracle-bg-input, rgba(11, 8, 32, 0.6));
+  color: var(--oracle-text, #F0E6D2);
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.composer-row .composer-input::placeholder {
+  color: var(--oracle-text-muted, rgba(196, 181, 216, 0.55));
+}
+
+.composer-row .composer-input:focus {
+  outline: none;
+  border-color: var(--oracle-gold, #D4A857);
+  box-shadow: 0 0 0 2px rgba(212, 168, 87, 0.15);
+}
+
+.composer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ghost-btn {
+  background: transparent;
+  border: 1px solid var(--oracle-border, rgba(212, 168, 87, 0.18));
+  padding: 10px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--oracle-text-dim, #C4B5D8);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.ghost-btn:hover:not(:disabled) {
+  border-color: var(--oracle-gold, #D4A857);
+  color: var(--oracle-gold, #D4A857);
+}
+
+.composer-error {
+  margin-top: 8px;
+  color: var(--oracle-rose, #E07A8C);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
 }
 </style>
